@@ -1,11 +1,20 @@
 package login;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Date;
 
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class loginPage extends JFrame {
+public class loginPage extends JFrame implements ActionListener{
 	Date date = new Date();
 	JPasswordField jpwPasscode = new JPasswordField();
 	JPanel jplControlPanel = new JPanel();
@@ -27,7 +36,7 @@ public class loginPage extends JFrame {
 	JButton jbtClear = new JButton("C");
 	JLabel jlEpmty = new JLabel(" ");
 	JLabel jlTitle = new JLabel(" ");
-	
+
 	public loginPage()
 	{
 		jplControlPanel.setLayout(new BoxLayout(jplControlPanel, BoxLayout.X_AXIS));
@@ -40,6 +49,7 @@ public class loginPage extends JFrame {
 		add(jplNorthPanel,BorderLayout.NORTH);
 		add(jplControlPanel);
 		setLocationRelativeTo(null); // makes frame center
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 	public void northPanel()
@@ -93,18 +103,162 @@ public class loginPage extends JFrame {
 	}
 	public void addListeners()
 	{
-//		buttonAction buttonAction = new buttonAction();
-//		jbtButton0.addActionListener(buttonAction);
-//		jbtButton1.addActionListener(buttonAction);
-//		jbtButton2.addActionListener(buttonAction);
-//		jbtButton3.addActionListener(buttonAction);
-//		jbtButton4.addActionListener(buttonAction);
-//		jbtButton5.addActionListener(buttonAction);
-//		jbtButton6.addActionListener(buttonAction);
-//		jbtButton7.addActionListener(buttonAction);
-//		jbtButton8.addActionListener(buttonAction);
-//		jbtButton9.addActionListener(buttonAction);
-//		jbtClear.addActionListener(buttonAction);
-		
+		authentacation action = new authentacation();
+		jbtButton0.addActionListener(this);
+		jbtButton1.addActionListener(this);
+		jbtButton2.addActionListener(this);
+		jbtButton3.addActionListener(this);
+		jbtButton4.addActionListener(this);
+		jbtButton5.addActionListener(this);
+		jbtButton6.addActionListener(this);
+		jbtButton7.addActionListener(this);
+		jbtButton8.addActionListener(this);
+		jbtButton9.addActionListener(this);
+		jbtClear.addActionListener(this);
+		jpwPasscode.addPropertyChangeListener(action);
+	}
+	public void actionPerformed(ActionEvent e)
+	{
+		@SuppressWarnings("deprecation")
+		StringBuilder inputPin = new StringBuilder(jpwPasscode.getText());
+		if(e.getSource()==jbtButton1||e.getSource()==jbtButton2||e.getSource()==jbtButton3||e.getSource()==jbtButton4||e.getSource()==jbtButton5||e.getSource()==jbtButton6||e.getSource()==jbtButton7||e.getSource()==jbtButton8||e.getSource()==jbtButton9||e.getSource()==jbtButton0||e.getSource()==jbtClear)
+		{
+			if(e.getSource()==jbtClear)
+			{
+				jpwPasscode.setText("");
+				inputPin.delete(0, inputPin.length());
+			} 
+			else if (inputPin.length()<4)//keeps password field to 4 numbers 
+			{
+				//adds number to password field according to button
+				if(e.getSource()==jbtButton1)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="1";
+					else
+						text = text+"1";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton2)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="2";
+					else
+						text = text+"2";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton3)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="3";
+					else
+						text = text+"3";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton4)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="4";
+					else
+						text = text+"4";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton5)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="5";
+					else
+						text = text+"5";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton6)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="6";
+					else
+						text = text+"6";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton7)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="7";
+					else
+						text = text+"7";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton8)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="8";
+					else
+						text = text+"8";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton9)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="9";
+					else
+						text = text+"9";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+				else if(e.getSource()==jbtButton0)
+				{
+					@SuppressWarnings("deprecation")
+					String text = jpwPasscode.getText();
+					if (text==null)
+						text="0";
+					else
+						text = text+"0";
+					jpwPasscode.setText(text);
+					System.out.println(text);
+				}
+			}
+		}
+	}
+	public class authentacation implements PropertyChangeListener
+	{
+		@Override
+		public void propertyChange(PropertyChangeEvent e) 
+		{
+			String passcode = jpwPasscode.getText();
+			int passcodeLength = passcode.length();
+			if(passcodeLength==4)
+			{
+				System.out.println("LENGTH IS 4");
+			}
+		}
 	}
 }
+
+
+
+
