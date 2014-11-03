@@ -12,6 +12,8 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 @SuppressWarnings("serial")
 public class loginPage extends JFrame implements ActionListener{
@@ -21,6 +23,7 @@ public class loginPage extends JFrame implements ActionListener{
 	JPanel jplPinPad = new JPanel(new GridLayout(4,3));
 	JPanel jplMessageBoard = new JPanel();
 	JPanel jplNorthPanel = new JPanel(new GridLayout(1,2));
+	JPanel jplSouthPanel = new JPanel(new GridLayout(1,2));
 	JPanel jplTitlePanel = new JPanel();
 	JPanel jplGraphicOvals = new JPanel();
 	JButton jbtButton0 = new JButton("0");
@@ -34,6 +37,8 @@ public class loginPage extends JFrame implements ActionListener{
 	JButton jbtButton8 = new JButton("8");
 	JButton jbtButton9 = new JButton("9");
 	JButton jbtClear = new JButton("C");
+	JButton jbtNewUser = new JButton("New User");
+	JButton jbtExit = new JButton("Exit");
 	JLabel jlEpmty = new JLabel(" ");
 	JLabel jlTitle = new JLabel(" ");
 
@@ -45,8 +50,11 @@ public class loginPage extends JFrame implements ActionListener{
 		northPanel();
 		pinPad();
 		messageBoard();
-		controlPanel();		
+		controlPanel();
+		jplSouthPanel.add(jbtNewUser);
+		jplSouthPanel.add(jbtExit);
 		add(jplNorthPanel,BorderLayout.NORTH);
+		add(jplSouthPanel,BorderLayout.SOUTH);
 		add(jplControlPanel);
 		setLocationRelativeTo(null); // makes frame center
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,19 +123,29 @@ public class loginPage extends JFrame implements ActionListener{
 		jbtButton8.addActionListener(this);
 		jbtButton9.addActionListener(this);
 		jbtClear.addActionListener(this);
+		jbtNewUser.addActionListener(this);
+		jbtExit.addActionListener(this);
 		jpwPasscode.addPropertyChangeListener(action);
 	}
 	public void actionPerformed(ActionEvent e)
 	{
 		@SuppressWarnings("deprecation")
 		StringBuilder inputPin = new StringBuilder(jpwPasscode.getText());
-		if(e.getSource()==jbtButton1||e.getSource()==jbtButton2||e.getSource()==jbtButton3||e.getSource()==jbtButton4||e.getSource()==jbtButton5||e.getSource()==jbtButton6||e.getSource()==jbtButton7||e.getSource()==jbtButton8||e.getSource()==jbtButton9||e.getSource()==jbtButton0||e.getSource()==jbtClear)
+		if(e.getSource()==jbtButton1||e.getSource()==jbtButton2||e.getSource()==jbtButton3||e.getSource()==jbtButton4||e.getSource()==jbtButton5||e.getSource()==jbtButton6||e.getSource()==jbtButton7||e.getSource()==jbtButton8||e.getSource()==jbtButton9||e.getSource()==jbtButton0||e.getSource()==jbtClear||e.getSource()==jbtNewUser||e.getSource()==jbtExit)
 		{
 			if(e.getSource()==jbtClear)
 			{
 				jpwPasscode.setText("");
 				inputPin.delete(0, inputPin.length());
-			} 
+			}
+			else if(e.getSource()==jbtNewUser)
+			{
+				newUserAndPasword user = new newUserAndPasword();
+			}
+			else if(e.getSource()==jbtExit)
+			{
+				System.exit(0);
+			}
 			else if (inputPin.length()<4)//keeps password field to 4 numbers 
 			{
 				//adds number to password field according to button
@@ -249,13 +267,14 @@ public class loginPage extends JFrame implements ActionListener{
 		@Override
 		public void propertyChange(PropertyChangeEvent e) 
 		{
+			@SuppressWarnings("deprecation")
 			String passcode = jpwPasscode.getText();
 			int passcodeLength = passcode.length();
 			if(passcodeLength==4)
 			{
 				System.out.println("LENGTH IS 4");
 			}
-		}
+		}		
 	}
 }
 
