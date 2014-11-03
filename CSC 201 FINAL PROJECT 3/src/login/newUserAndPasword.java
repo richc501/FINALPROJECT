@@ -15,7 +15,8 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 	JPanel jplButtonPanel = new JPanel(new FlowLayout());
 	JButton jbtCancel = new JButton("Cancel");
 	JButton jbtSubmit = new JButton("Submit");
-	private String userName="",passwordString="";
+	private String userName="";
+	private StringBuilder passcode = new StringBuilder();
 	public newUserAndPasword()
 	{
 		setSize(300,150);
@@ -44,42 +45,18 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		boolean isDigit=false;
 		if(e.getSource()==jbtSubmit)
 		{ 
 			userName = jtfUserName.getText();
-			passwordString = jpwUserPassword.getText();
-			System.out.println(userName);
-			System.out.println(passwordString);
-			this.setVisible(false);
-		    this.dispose();
-		}
-		else if(e.getSource()==jbtCancel)
-		{
-			this.setVisible(false);
-		    this.dispose();
-		}
-	}
-	public void newUser()
-	{
-		StringBuilder password = new StringBuilder();
-		int password1 = 0;
-		
-		boolean isDigit=true;
-		JFrame frame = new JFrame();
-		do
-		{
-			Object user = JOptionPane.showInputDialog(frame,"Enter user name: (Only 5 characters long)");
-			userName = user.toString();
-		}while(userName.length()<5);
-		do
-		{
-			
-			Object passcode = JOptionPane.showInputDialog(frame,"Enter password: (only 4 numbers)");
-			passwordString = passcode.toString();
-			password = new StringBuilder(passwordString);
-			for(int i=0;i<password.length();i++)
+			passcode = new StringBuilder(jpwUserPassword.getText());
+			if(userName.length()<5)
 			{
-				if (Character.isDigit(password.charAt(i)))
+				JOptionPane.showMessageDialog(null, "User Name Must be 5 letters in length");
+			}
+			for(int i=0;i<passcode.length();i++)
+			{
+				if(Character.isDigit(passcode.charAt(i)))
 				{
 					isDigit=true;
 				}
@@ -89,9 +66,27 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 					break;
 				}
 			}
-		}while(isDigit==false&&password.length()<4);
-		password1 = Integer.parseInt(passwordString);
-		System.out.println(password1);	
+			if(passcode.length()<4||isDigit==false)
+			{
+				JOptionPane.showMessageDialog(null, "Password must be 4 numbers");
+			}
+			else
+			{
+				int passcode1 = Integer.parseInt(passcode.toString());
+				//userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
+				this.setVisible(false);
+				this.dispose();
+			}
+			System.out.println(userName);
+			System.out.println(passcode);
+
+		}
+		else if(e.getSource()==jbtCancel)
+		{
+			this.setVisible(false);
+			this.dispose();
+		}
 	}
+	
 
 }

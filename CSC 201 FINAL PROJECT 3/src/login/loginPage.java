@@ -78,7 +78,7 @@ public class loginPage extends JFrame implements ActionListener{
 		addButtons();
 		addListeners();
 		jplPinPad.setForeground(Color.red);
-		jplPinPad.setSize(100, 100);
+		jplPinPad.setSize(100,100);
 		jplPinPad.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	public void messageBoard()
@@ -88,7 +88,6 @@ public class loginPage extends JFrame implements ActionListener{
 	}
 	public void controlPanel()
 	{
-		//jplControlPanel.add(jplNorthPanel,BorderLayout.NORTH);
 		jplControlPanel.add(jplMessageBoard,BorderLayout.WEST);
 		jplControlPanel.add(jplPinPad,BorderLayout.CENTER);
 		jplControlPanel.setSize(800,450);
@@ -267,6 +266,7 @@ public class loginPage extends JFrame implements ActionListener{
 		@Override
 		public void propertyChange(PropertyChangeEvent e) 
 		{
+			System.out.println("TEST");
 			@SuppressWarnings("deprecation")
 			String passcode = jpwPasscode.getText();
 			int passcodeLength = passcode.length();
