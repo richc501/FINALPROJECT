@@ -17,6 +17,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 	JButton jbtSubmit = new JButton("Submit");
 	private String userName="";
 	private StringBuilder passcode = new StringBuilder();
+	private int passcode1;
 	public newUserAndPasword()
 	{
 		setSize(300,150);
@@ -72,7 +73,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			}
 			else
 			{
-				int passcode1 = Integer.parseInt(passcode.toString());
+				passcode1 = Integer.parseInt(passcode.toString());
 				//userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
 				this.setVisible(false);
 				this.dispose();

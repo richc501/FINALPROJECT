@@ -14,6 +14,8 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 @SuppressWarnings("serial")
 public class loginPage extends JFrame implements ActionListener{
@@ -124,7 +126,7 @@ public class loginPage extends JFrame implements ActionListener{
 		jbtClear.addActionListener(this);
 		jbtNewUser.addActionListener(this);
 		jbtExit.addActionListener(this);
-		jpwPasscode.addPropertyChangeListener(action);
+		jpwPasscode.addCaretListener(action);
 	}
 	public void actionPerformed(ActionEvent e)
 	{
@@ -261,18 +263,18 @@ public class loginPage extends JFrame implements ActionListener{
 			}
 		}
 	}
-	public class authentacation implements PropertyChangeListener
+	public class authentacation implements CaretListener
 	{
 		@Override
-		public void propertyChange(PropertyChangeEvent e) 
-		{
+		public void caretUpdate(CaretEvent arg0) {
+			// TODO Auto-generated method stub
 			System.out.println("TEST");
 			@SuppressWarnings("deprecation")
 			String passcode = jpwPasscode.getText();
 			int passcodeLength = passcode.length();
 			if(passcodeLength==4)
 			{
-				System.out.println("LENGTH IS 4");
+				
 			}
 		}		
 	}
