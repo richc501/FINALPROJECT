@@ -1,12 +1,13 @@
 package login;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class userAndPasswordSaver {
 	private String userName;
-	private int password;
+	protected int password;
 	public userAndPasswordSaver(String userName, int password)
 	{
 		this.setUserName(userName);

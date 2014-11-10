@@ -70,6 +70,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			if(passcode.length()<4||isDigit==false)
 			{
 				JOptionPane.showMessageDialog(null, "Password must be 4 numbers");
+				jpwUserPassword.setText("");
 			}
 			else
 			{

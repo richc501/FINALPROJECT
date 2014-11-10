@@ -274,7 +274,9 @@ public class loginPage extends JFrame implements ActionListener{
 			int passcodeLength = passcode.length();
 			if(passcodeLength==4)
 			{
-				
+				FindUser user = new FindUser(Integer.parseInt(passcode));
+				String userName = user.findUserFromPassword();
+				JOptionPane.showMessageDialog(null, "Welcome, "+userName);
 			}
 		}		
 	}
