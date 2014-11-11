@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 @SuppressWarnings("serial")
 public class newUserAndPasword extends JFrame implements ActionListener{
@@ -29,6 +31,9 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	private void addListeners() {
+		checkIfPasswordOrUserNameExists action = new checkIfPasswordOrUserNameExists();
+		jpwUserPassword.addCaretListener(action);
+		jtfUserName.addCaretListener(action);
 		jbtSubmit.addActionListener(this);
 		jbtCancel.addActionListener(this);
 	}
@@ -75,6 +80,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			else
 			{
 				passcode1 = Integer.parseInt(passcode.toString());
+				//add to checks if user name and password already exists
 				userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
 				this.setVisible(false);
 				this.dispose();
@@ -89,6 +95,24 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			this.dispose();
 		}
 	}
-	
+	public class checkIfPasswordOrUserNameExists implements CaretListener
+	{
+
+		@Override
+		public void caretUpdate(CaretEvent e) {
+			String password =jpwUserPassword.toString(), userName =jtfUserName.toString();
+			int passwordLength = password.length(), userNameLength = userName.length();
+			if(passwordLength==4)
+			{
+				
+					System.out.println("test1");
+					
+			}
+			if(userNameLength==5)
+			{
+					System.out.println("test2");
+			}
+		}
+	}
 
 }

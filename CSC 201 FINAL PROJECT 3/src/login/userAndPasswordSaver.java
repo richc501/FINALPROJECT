@@ -1,6 +1,5 @@
 package login;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -19,7 +18,6 @@ public class userAndPasswordSaver {
 		try
 		{
 			RandomAccessFile info = new RandomAccessFile("info.dat","rw");
-			//add counter for amount of users
 			RandomAccessFile numberOfVaribles = new RandomAccessFile("n.dat","rw");
 			
 			if(numberOfVaribles.length()>0)
@@ -29,7 +27,7 @@ public class userAndPasswordSaver {
 			numberOfVaribles.seek(0);
 			numberOfVaribles.writeInt(amountOfItems);
 			numberOfVaribles.seek(0);
-			info.seek(info.length()+2);
+			info.seek(info.length());
 			info.writeUTF(userName);
 			info.writeInt(password);
 			}
@@ -40,8 +38,6 @@ public class userAndPasswordSaver {
 				numberOfVaribles.seek(0);
 				numberOfVaribles.writeInt(2);
 			}
-			
-			
 			numberOfVaribles.close();
 			info.close();
 		} catch (FileNotFoundException e) {

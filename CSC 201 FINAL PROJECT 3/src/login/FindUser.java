@@ -17,7 +17,6 @@ public class FindUser {
 	}
 	protected String findUserFromPassword() 
 	{
-		boolean foundUserName=false;
 		try
 		{
 			RandomAccessFile readFile = new RandomAccessFile("Info.dat","rw");
@@ -32,13 +31,10 @@ public class FindUser {
 				if(passwordTemp==password)
 				{
 					UserName = userTemp;
-					foundUserName=true;
 					break;
 				}
-				else
-				{
-					foundUserName=false;
-				}
+				else if(userTemp==null)
+					loopLimit++;
 			}
 			readFile.close();
 			numberOfVaribles.close();
@@ -55,7 +51,7 @@ public class FindUser {
 	}
 	protected boolean testPassword() 
 	{
-		boolean foundUserName=false;
+		boolean foundUserName = false;
 		try
 		{
 			RandomAccessFile readFile = new RandomAccessFile("Info.dat","rw");
@@ -73,6 +69,8 @@ public class FindUser {
 					foundUserName=true;
 					break;
 				}
+				else if(userTemp==null)
+					loopLimit++;
 				else
 				{
 					foundUserName=false;
