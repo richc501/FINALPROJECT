@@ -27,7 +27,6 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 		add(jplButtonPanel,BorderLayout.SOUTH);
 		setLocationRelativeTo(null); // makes frame center
 		setVisible(true);
-		//newUser();
 	}
 	private void addListeners() {
 		jbtSubmit.addActionListener(this);
@@ -51,6 +50,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 		{ 
 			userName = jtfUserName.getText();
 			passcode = new StringBuilder(jpwUserPassword.getText());
+			//add joption pane for admin login
 			if(userName.length()<5)
 			{
 				JOptionPane.showMessageDialog(null, "User Name Must be 5 letters in length");
@@ -75,7 +75,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			else
 			{
 				passcode1 = Integer.parseInt(passcode.toString());
-				//userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
+				userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
 				this.setVisible(false);
 				this.dispose();
 			}

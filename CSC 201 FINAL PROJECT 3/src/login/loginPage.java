@@ -276,7 +276,11 @@ public class loginPage extends JFrame implements ActionListener{
 			{
 				FindUser user = new FindUser(Integer.parseInt(passcode));
 				String userName = user.findUserFromPassword();
-				JOptionPane.showMessageDialog(null, "Welcome, "+userName);
+				if(user.testPassword())
+					JOptionPane.showMessageDialog(null, "Welcome, "+userName);
+				else
+					JOptionPane.showMessageDialog(null, "ERROR!");
+				JOptionPane.showMessageDialog(null, "TEST, "+userName);
 			}
 		}		
 	}

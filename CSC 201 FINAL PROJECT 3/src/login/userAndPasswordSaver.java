@@ -19,8 +19,30 @@ public class userAndPasswordSaver {
 		try
 		{
 			RandomAccessFile info = new RandomAccessFile("info.dat","rw");
+			//add counter for amount of users
+			RandomAccessFile numberOfVaribles = new RandomAccessFile("n.dat","rw");
+			
+			if(numberOfVaribles.length()>0)
+			{
+			numberOfVaribles.seek(0);
+			int amountOfItems = (numberOfVaribles.readInt())+2;
+			numberOfVaribles.seek(0);
+			numberOfVaribles.writeInt(amountOfItems);
+			numberOfVaribles.seek(0);
+			info.seek(info.length()+2);
 			info.writeUTF(userName);
 			info.writeInt(password);
+			}
+			else
+			{
+				info.writeUTF(userName);
+				info.writeInt(password);
+				numberOfVaribles.seek(0);
+				numberOfVaribles.writeInt(2);
+			}
+			
+			
+			numberOfVaribles.close();
 			info.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
