@@ -3,6 +3,9 @@ package login;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -31,9 +34,6 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	private void addListeners() {
-		checkIfPasswordOrUserNameExists action = new checkIfPasswordOrUserNameExists();
-		jpwUserPassword.addCaretListener(action);
-		jtfUserName.addCaretListener(action);
 		jbtSubmit.addActionListener(this);
 		jbtCancel.addActionListener(this);
 	}
@@ -81,9 +81,23 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			{
 				passcode1 = Integer.parseInt(passcode.toString());
 				//add to checks if user name and password already exists
-				userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
-				this.setVisible(false);
-				this.dispose();
+				if(doesUserExist())
+				{
+					JOptionPane.showMessageDialog(null, "User Exists Please Change User Name");
+					jtfUserName.setText("");
+					
+				}
+				if(doesPasswordExist())
+				{
+					JOptionPane.showMessageDialog(null, "Password Exists Please Change Password");
+					jpwUserPassword.setText("");
+				}
+				if(doesUserExist()==false&&doesPasswordExist()==false)
+				{
+					userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
+					this.setVisible(false);
+					this.dispose();
+				}
 			}
 			System.out.println(userName);
 			System.out.println(passcode);
@@ -95,24 +109,83 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			this.dispose();
 		}
 	}
-	public class checkIfPasswordOrUserNameExists implements CaretListener
+	
+	public boolean doesUserExist()
 	{
-
-		@Override
-		public void caretUpdate(CaretEvent e) {
-			String password =jpwUserPassword.toString(), userName =jtfUserName.toString();
-			int passwordLength = password.length(), userNameLength = userName.length();
-			if(passwordLength==4)
+		boolean userExists=false;
+		try
+		{
+			RandomAccessFile info = new RandomAccessFile("info.dat","r");
+			RandomAccessFile amountOfVaribles = new RandomAccessFile("n.dat","r");
+			info.seek(0);
+			amountOfVaribles.seek(0);
+			int loopLimit = amountOfVaribles.readInt()/2;
+			for(int i=0;i<loopLimit;i++)
 			{
-				
-					System.out.println("test1");
-					
+				String userTemp = info.readUTF();
+				int passcodeTemp = info.readInt();
+				if (userTemp.equals(jtfUserName.getText()))
+				{
+					userExists=true;
+					break;
+				}
+				else
+				{
+					userExists=false;
+				}
 			}
-			if(userNameLength==5)
-			{
-					System.out.println("test2");
-			}
+			info.close();
+			amountOfVaribles.close();
 		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found!");
+		}
+		catch(IOException e)
+		{
+			System.out.println("IOException!");
+		}
+		return userExists;
+		
 	}
-
+	public boolean doesPasswordExist()
+	{
+		boolean passwordExists=false;
+		try
+		{
+			RandomAccessFile info = new RandomAccessFile("info.dat","r");
+			RandomAccessFile amountOfVaribles = new RandomAccessFile("n.dat","r");
+			info.seek(0);
+			amountOfVaribles.seek(0);
+			int loopLimit = amountOfVaribles.readInt()/2;
+			@SuppressWarnings("deprecation")
+			String enteredPasscode = jpwUserPassword.getText();
+			for(int i=0;i<loopLimit;i++)
+			{
+				String userTemp = info.readUTF();
+				int passcodeTemp = info.readInt();
+				if (passcodeTemp==Integer.parseInt(enteredPasscode))
+				{
+					passwordExists=true;
+					break;
+				}
+				else
+				{
+					passwordExists=false;
+				}
+			}
+			info.close();
+			amountOfVaribles.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found!");
+		}
+		catch(IOException e)
+		{
+			System.out.println("IOException!");
+		}
+		return passwordExists;
+		
+	}
 }
