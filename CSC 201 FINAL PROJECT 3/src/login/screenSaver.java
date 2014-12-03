@@ -25,6 +25,7 @@ public class screenSaver extends JFrame implements MouseMotionListener{
 		setUndecorated(true);
 		moveCursor();
 		addMouseMotionListener(this);
+		//sets size to resolution of computer
 		int xSize = ((int) tk.getScreenSize().getWidth());  
 		int ySize = ((int) tk.getScreenSize().getHeight());  
 		addImages();
@@ -32,14 +33,14 @@ public class screenSaver extends JFrame implements MouseMotionListener{
 		setSize(xSize,ySize); 
 		setVisible(true);
 	}
-	private void addImages() {
+	private void addImages() {//adds image JPanel
 		ImageIcon image = new ImageIcon("bigLogo.jpg");//makes image
 		JLabel jlImage = new JLabel(image);
 		jplImage.add(jlImage);
 	}
 	public void moveCursor()
 	{
-		//forces cursor to center of screen
+		//forces cursor to point of screen
 		try {
 			Robot robot = new Robot();
 			robot.mouseMove(centerX,centerY);

@@ -15,6 +15,8 @@ public class userAndPasswordSaver {
 	}
 	public void saveToFile()
 	{
+		//saves user and password to dat file
+		//saves amount of users to another dat file
 		try
 		{
 			RandomAccessFile info = new RandomAccessFile("info.dat","rw");

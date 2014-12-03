@@ -23,6 +23,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 	private String userName="";
 	private StringBuilder passcode = new StringBuilder();
 	private int passcode1;
+	//Makes JFrame after admin authenticates
 	public newUserAndPasword()
 	{
 		setSize(300,150);

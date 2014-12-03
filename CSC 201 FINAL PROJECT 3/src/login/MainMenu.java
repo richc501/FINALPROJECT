@@ -10,6 +10,7 @@ public class MainMenu extends JFrame implements ActionListener{
 	private String userName;
 	Date date = new Date();
 	JButton jbtExit = new JButton("Exit");
+	//Main Menu for after login
 	public MainMenu(String userName)
 	{
 		this.userName = userName;

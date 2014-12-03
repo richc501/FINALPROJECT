@@ -17,6 +17,8 @@ public class FindUser {
 	}
 	protected String findUserFromPassword() 
 	{
+		//find user bases on password
+		//using Random Access File Class
 		try
 		{
 			RandomAccessFile readFile = new RandomAccessFile("Info.dat","rw");

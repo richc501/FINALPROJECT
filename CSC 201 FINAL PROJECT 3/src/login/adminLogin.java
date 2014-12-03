@@ -8,6 +8,7 @@ public class adminLogin{
 	public int adminAuthentication()
 	{
 		int adminPasscode = 0;
+		//finds admin password for validation to create a new user 
 		try
 		{
 			RandomAccessFile readFile = new RandomAccessFile("Info.dat","r");
