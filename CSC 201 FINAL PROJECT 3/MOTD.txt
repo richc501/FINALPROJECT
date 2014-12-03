@@ -1,0 +1,12 @@
+Said person would put stuff in this text file for anoucements or something
+Edit text file........... BUT HERE EXAMPLE:
+1. Some deal goes here
+2.Some Event-----TIME&DATE
+3.Some Event-----TIME&DATE
+4.Some Event-----TIME&DATE
+5.Some Event-----TIME&DATE
+6.Some Event-----TIME&DATE
+7.Some Event-----TIME&DATE
+8.Some Event-----TIME&DATE
+9.Some Event-----TIME&DATE
+10.Some Event-----TIME&DATE

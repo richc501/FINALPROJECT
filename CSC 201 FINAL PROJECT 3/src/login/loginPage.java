@@ -37,18 +37,19 @@ public class loginPage extends JFrame implements ActionListener{
 	JButton jbtButton7 = new JButton("7");
 	JButton jbtButton8 = new JButton("8");
 	JButton jbtButton9 = new JButton("9");
-	JButton jbtClear = new JButton("C");
+	JButton jbtClearPowerOff = new JButton("Power Off");
 	JButton jbtNewUser = new JButton("New User");
-	JButton jbtExit = new JButton("Exit");
+	//JButton jbtExit = new JButton("Exit");
 	JLabel jlEpmty = new JLabel(" ");
 	JLabel jlTitle = new JLabel(" ");
+	JLabel jblAnnoucement = new JLabel("");
 	Timer timer = new Timer(10000, null);
 	motionSensor mouse = new motionSensor();
 	JFrame f = new JFrame();
 	public loginPage()
 	{
 		SetTimer();//keeps track of timer
-		f.addMouseMotionListener(mouse);
+		f.addMouseMotionListener(mouse);//adds listener for mouse movement
 		jplControlPanel.setLayout(new BoxLayout(jplControlPanel, BoxLayout.X_AXIS));
 		f.setTitle("Point of Sale System: Login");
 		f.setSize(850,500);
@@ -57,7 +58,7 @@ public class loginPage extends JFrame implements ActionListener{
 		messageBoard();
 		controlPanel();
 		jplSouthPanel.add(jbtNewUser);
-		jplSouthPanel.add(jbtExit);
+		//jplSouthPanel.add(jbtExit);
 		f.add(jplNorthPanel,BorderLayout.NORTH);
 		f.add(jplSouthPanel,BorderLayout.SOUTH);
 		f.add(jplControlPanel);
@@ -66,6 +67,7 @@ public class loginPage extends JFrame implements ActionListener{
 		f.setVisible(true);
 	}
 	private void SetTimer() {
+		//activates screen saver when timer runs out
 		timer = new Timer(25000, new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -77,18 +79,16 @@ public class loginPage extends JFrame implements ActionListener{
 	}
 	public void northPanel()
 	{
+		//adds attributes to JPanel
 		jlTitle = new JLabel("Station 1 : "+date.toString());
 		jplTitlePanel.add(jlTitle);
 		jplNorthPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
-		jplGraphicOvals.add(new drawOvals());
-		jplGraphicOvals.setSize(100,100);
-		jplGraphicOvals.setBorder(BorderFactory.createLineBorder(Color.green));
 		jplNorthPanel.add(jplTitlePanel);
 		jplNorthPanel.add(jpwPasscode);
 		jplNorthPanel.setSize(800,450);
 		jplNorthPanel.setBorder(BorderFactory.createLineBorder(Color.red));
 	}
-	public void pinPad()
+	public void pinPad()//adds items to pin pad JPanel
 	{
 		addButtons();
 		addListeners();
@@ -96,7 +96,7 @@ public class loginPage extends JFrame implements ActionListener{
 		jplPinPad.setSize(100,100);
 		jplPinPad.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
-	public void messageBoard()
+	public void messageBoard()//adds items to Message Board JPanel
 	{
 		ImageIcon image = new ImageIcon("logo.jpg");//makes image
 		JLabel jlImage = new JLabel(image);
@@ -108,35 +108,31 @@ public class loginPage extends JFrame implements ActionListener{
 		Font font = new Font("Impact",Font.BOLD,32);
 		jlTitle.setFont(font);
 		jplMessageBoard.add(jlTitle);
-		JTextArea jtaMessage = new JTextArea(getMessageFromTXT());
-		
-		jplMessageBoard.add(jtaMessage);
+		//JTextArea jtaMessage = new JTextArea(getMessageFromTXT());
+		addAnnoucementsToMsgBoard();
 	}
-	private String getMessageFromTXT() {
-		StringBuilder MOTD = new StringBuilder();
-		String message=null;
+	private void addAnnoucementsToMsgBoard() {//adds annoucements to Message Board from txt file 
 		try
 		{
 			Scanner fileReader = new Scanner(new File("MOTD.txt"));
 			while(fileReader.hasNextLine())
 			{
-				MOTD.append("\n"+fileReader.nextLine());
+				jblAnnoucement = new JLabel(fileReader.nextLine());
+				jplMessageBoard.add(jblAnnoucement);
 			}
 			fileReader.close();
 		}catch(FileNotFoundException e){
 			System.out.println("File not found");
 		}
-		message = MOTD.toString();
-		return message;
 	}
-	public void controlPanel()
+	public void controlPanel() // adds items to JPanel
 	{
 		jplControlPanel.add(jplMessageBoard,BorderLayout.WEST);
 		jplControlPanel.add(jplPinPad,BorderLayout.CENTER);
 		jplControlPanel.setSize(800,450);
 		jplControlPanel.setBorder(BorderFactory.createRaisedBevelBorder());
 	}
-	public void addButtons()
+	public void addButtons()//adds numbers buttons to pin pad Panel 
 	{
 		jplPinPad.add(jbtButton1);
 		jplPinPad.add(jbtButton2);
@@ -149,9 +145,9 @@ public class loginPage extends JFrame implements ActionListener{
 		jplPinPad.add(jbtButton9);
 		jplPinPad.add(jlEpmty);
 		jplPinPad.add(jbtButton0);
-		jplPinPad.add(jbtClear);
+		jplPinPad.add(jbtClearPowerOff);
 	}
-	public void addListeners()
+	public void addListeners()//adds listeners for buttons etc.
 	{
 		authentacation action = new authentacation();
 		jbtButton0.addActionListener(this);
@@ -164,28 +160,40 @@ public class loginPage extends JFrame implements ActionListener{
 		jbtButton7.addActionListener(this);
 		jbtButton8.addActionListener(this);
 		jbtButton9.addActionListener(this);
-		jbtClear.addActionListener(this);
+		jbtClearPowerOff.addActionListener(this);
 		jbtNewUser.addActionListener(this);
-		jbtExit.addActionListener(this);
+		//jbtExit.addActionListener(this);
 		jpwPasscode.addCaretListener(action);
 	}
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e)
 	{
+		//makes button do what they are suppost to do
 		StringBuilder inputPin = new StringBuilder(jpwPasscode.getText());
-		if(e.getSource()==jbtButton1||e.getSource()==jbtButton2||e.getSource()==jbtButton3||e.getSource()==jbtButton4||e.getSource()==jbtButton5||e.getSource()==jbtButton6||e.getSource()==jbtButton7||e.getSource()==jbtButton8||e.getSource()==jbtButton9||e.getSource()==jbtButton0||e.getSource()==jbtClear||e.getSource()==jbtNewUser||e.getSource()==jbtExit)
+		if(e.getSource()==jbtButton1||e.getSource()==jbtButton2||e.getSource()==jbtButton3||e.getSource()==jbtButton4||e.getSource()==jbtButton5||e.getSource()==jbtButton6||e.getSource()==jbtButton7||e.getSource()==jbtButton8||e.getSource()==jbtButton9||e.getSource()==jbtButton0||e.getSource()==jbtClearPowerOff||e.getSource()==jbtNewUser)
 		{
-			if(e.getSource()==jbtClear)
+			if(e.getSource()==jbtClearPowerOff)
 			{
-				if(!(jpwPasscode.getText().equals("")))
+				if(jbtClearPowerOff.getText().equals("Delete"))
 				{
-				String text = jpwPasscode.getText();
-				text = text.substring(0,text.length()-1);
-				System.out.println(text);
-				jpwPasscode.setText(text);
-				inputPin = new StringBuilder(text);
+					if(!(jpwPasscode.getText().equals("")))
+					{
+						String text = jpwPasscode.getText();
+						text = text.substring(0,text.length()-1);
+						System.out.println(text);
+						jpwPasscode.setText(text);
+						inputPin = new StringBuilder(text);
+					}
+					timer.stop();
+					if(jpwPasscode.getText().equals(""))
+					{
+						jbtClearPowerOff.setText("Power Off");
+					}
 				}
-				timer.stop();
+				else if(jbtClearPowerOff.getText().equals("Power Off"))
+				{
+					System.exit(0);
+				}
 				screenSaver saver = new screenSaver();
 			}
 			else if(e.getSource()==jbtNewUser)
@@ -199,15 +207,16 @@ public class loginPage extends JFrame implements ActionListener{
 				else
 					JOptionPane.showMessageDialog(null, "Passcode Incorrect");
 			}
-			else if(e.getSource()==jbtExit)
-			{
-				System.exit(0);
-			}
+//			else if(e.getSource()==jbtExit)
+//			{
+//				System.exit(0);
+//			}
 			else if (inputPin.length()<4)//keeps password field to 4 numbers 
 			{
 				//adds number to password field according to button
 				if(e.getSource()==jbtButton1)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -219,6 +228,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton2)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -230,6 +240,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton3)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -241,6 +252,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton4)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -252,6 +264,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton5)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -263,6 +276,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton6)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -274,6 +288,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton7)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -285,6 +300,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton8)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -296,6 +312,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton9)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -307,6 +324,7 @@ public class loginPage extends JFrame implements ActionListener{
 				}
 				else if(e.getSource()==jbtButton0)
 				{
+					jbtClearPowerOff.setText("Delete");
 					@SuppressWarnings("deprecation")
 					String text = jpwPasscode.getText();
 					if (text==null)
@@ -319,7 +337,7 @@ public class loginPage extends JFrame implements ActionListener{
 			}
 		}
 	}
-	private boolean isAdmin(int adminPasscode) {
+	private boolean isAdmin(int adminPasscode) {//checks for admin password
 		boolean passcodeCorrect=false;
 		adminLogin adminUser = new adminLogin();
 		int correctPasscode = adminUser.adminAuthentication();
@@ -329,11 +347,10 @@ public class loginPage extends JFrame implements ActionListener{
 			passcodeCorrect=false;
 		return passcodeCorrect;
 	}
-	public class authentacation implements CaretListener
+	public class authentacation implements CaretListener//check for password and if corrects logs in with user associated with said password
 	{
 		@Override
 		public void caretUpdate(CaretEvent arg0) {
-			// TODO Auto-generated method stub
 			System.out.println("TEST");
 			@SuppressWarnings("deprecation")
 			String passcode = jpwPasscode.getText();
@@ -344,9 +361,11 @@ public class loginPage extends JFrame implements ActionListener{
 				String userName = user.findUserFromPassword();
 				if(user.testPassword())
 				{
+					timer.stop();
 					f.setVisible(false);
-					f.dispose();
+					MainMenu menu = new MainMenu(userName);
 					JOptionPane.showMessageDialog(null, "Welcome, "+userName);
+					f.dispose();
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Incorrect Passcode!");
@@ -359,13 +378,13 @@ public class loginPage extends JFrame implements ActionListener{
 		public void mouseDragged(MouseEvent arg0) {
 		}
 		@Override
-		public void mouseMoved(MouseEvent e) {
+		public void mouseMoved(MouseEvent e) {//keeps track of mouse moving
 			if(timer.isRunning())
-				timer.restart();
+				timer.restart();//restart timer if timer is running
 			else
-				timer.start();
+				timer.start();//starts timer if timer is not running
 		}
-		
+
 	}
 }
 
