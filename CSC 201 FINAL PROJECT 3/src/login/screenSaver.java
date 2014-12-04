@@ -1,5 +1,7 @@
 package login;
-
+//Richard Cunningham
+//Admin: Pasword- 1234
+//test1: PAsword- 5678
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,21 +15,24 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class screenSaver extends JFrame implements MouseMotionListener{
 	int xPos, yPos;
-	final int centerX=632, centerY=360;
-	JPanel jplImage = new JPanel();
-	
 	Toolkit tk = Toolkit.getDefaultToolkit();
+	//sets resolution of screen to x and y ints
+	final int xSize = ((int) tk.getScreenSize().getWidth());  
+	final int ySize = ((int) tk.getScreenSize().getHeight());
+	final int centerX=xSize/2, centerY=ySize/2;//numbers for position of cursor when screen saver opens
+	JPanel jplImage = new JPanel();
 	
 	public screenSaver()
 	{
-		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));//changes cursor to loading cursor
+		//removes windowed mode
 		setExtendedState(screenSaver.MAXIMIZED_BOTH);
 		setUndecorated(true);
+		
 		moveCursor();
 		addMouseMotionListener(this);
 		//sets size to resolution of computer
-		int xSize = ((int) tk.getScreenSize().getWidth());  
-		int ySize = ((int) tk.getScreenSize().getHeight());  
+		  
 		addImages();
 		add(jplImage);
 		setSize(xSize,ySize); 
@@ -40,7 +45,7 @@ public class screenSaver extends JFrame implements MouseMotionListener{
 	}
 	public void moveCursor()
 	{
-		//forces cursor to point of screen
+		//forces cursor to center of screen
 		try {
 			Robot robot = new Robot();
 			robot.mouseMove(centerX,centerY);

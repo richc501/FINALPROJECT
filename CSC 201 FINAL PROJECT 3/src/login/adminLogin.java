@@ -1,5 +1,7 @@
 package login;
-
+//Richard Cunningham
+//Admin: Pasword- 1234
+//test1: PAsword- 5678
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;

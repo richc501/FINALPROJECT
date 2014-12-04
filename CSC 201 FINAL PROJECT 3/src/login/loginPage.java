@@ -1,4 +1,7 @@
 package login;
+//Richard Cunningham
+//Admin: Pasword- 1234
+//test1: PAsword- 5678
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +22,7 @@ import javax.swing.text.StyledDocument;
 @SuppressWarnings("serial")
 public class loginPage extends JFrame implements ActionListener{
 	Date date = new Date();
-	JPasswordField jpwPasscode = new JPasswordField();
+	public JPasswordField jpwPasscode = new JPasswordField();
 	JPanel jplControlPanel = new JPanel();
 	JPanel jplPinPad = new JPanel(new GridLayout(4,3));
 	JPanel jplMessageBoard = new JPanel();
@@ -166,9 +169,9 @@ public class loginPage extends JFrame implements ActionListener{
 		jpwPasscode.addCaretListener(action);
 	}
 	@SuppressWarnings("deprecation")
-	public void actionPerformed(ActionEvent e)
+	public void actionPerformed(ActionEvent e)//makes button do what they are suppost to do
 	{
-		//makes button do what they are suppost to do
+		
 		StringBuilder inputPin = new StringBuilder(jpwPasscode.getText());
 		if(e.getSource()==jbtButton1||e.getSource()==jbtButton2||e.getSource()==jbtButton3||e.getSource()==jbtButton4||e.getSource()==jbtButton5||e.getSource()==jbtButton6||e.getSource()==jbtButton7||e.getSource()==jbtButton8||e.getSource()==jbtButton9||e.getSource()==jbtButton0||e.getSource()==jbtClearPowerOff||e.getSource()==jbtNewUser)
 		{
@@ -184,17 +187,33 @@ public class loginPage extends JFrame implements ActionListener{
 						jpwPasscode.setText(text);
 						inputPin = new StringBuilder(text);
 					}
-					timer.stop();
 					if(jpwPasscode.getText().equals(""))
 					{
 						jbtClearPowerOff.setText("Power Off");
 					}
+					timer.stop();
+					screenSaver saver = new screenSaver();
+				}
+				else if(jbtClearPowerOff.getText().equals("Delete All"))//deletes all when text is length of 4
+				{
+					if(!(jpwPasscode.getText().equals("")))
+					{
+						String text = "";
+						System.out.println(text);
+						jpwPasscode.setText(text);
+						inputPin = new StringBuilder(text);
+					}
+					if(jpwPasscode.getText().equals(""))
+					{
+						jbtClearPowerOff.setText("Power Off");
+					}
+					timer.stop();
+					screenSaver saver = new screenSaver();
 				}
 				else if(jbtClearPowerOff.getText().equals("Power Off"))
 				{
 					System.exit(0);
 				}
-				screenSaver saver = new screenSaver();
 			}
 			else if(e.getSource()==jbtNewUser)
 			{
@@ -357,18 +376,22 @@ public class loginPage extends JFrame implements ActionListener{
 			int passcodeLength = passcode.length();
 			if(passcodeLength==4)
 			{
+				jbtClearPowerOff.setText("Delete All");
 				FindUser user = new FindUser(Integer.parseInt(passcode));
 				String userName = user.findUserFromPassword();
 				if(user.testPassword())
 				{
 					timer.stop();
 					f.setVisible(false);
+					f.dispose();
 					MainMenu menu = new MainMenu(userName);
 					JOptionPane.showMessageDialog(null, "Welcome, "+userName);
-					f.dispose();
 				}
 				else
+				{
+					
 					JOptionPane.showMessageDialog(null, "Incorrect Passcode!");
+				}
 			}
 		}		
 	}
