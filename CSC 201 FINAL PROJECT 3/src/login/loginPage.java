@@ -217,7 +217,7 @@ public class loginPage extends JFrame implements ActionListener{
 			}
 			else if(e.getSource()==jbtNewUser)
 			{
-
+				timer.stop();
 				int adminPasscode = Integer.parseInt(JOptionPane.showInputDialog(null,"Insert Admin Passcode"));
 				if(isAdmin(adminPasscode))
 				{

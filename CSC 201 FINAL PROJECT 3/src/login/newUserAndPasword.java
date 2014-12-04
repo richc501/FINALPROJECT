@@ -58,8 +58,7 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 		{ 
 			userName = jtfUserName.getText();
 			passcode = new StringBuilder(jpwUserPassword.getText());
-			//add joption pane for admin login
-			if(userName.length()<5)
+			if(userName.length()<5||userName.length()>5)
 			{
 				JOptionPane.showMessageDialog(null, "User Name Must be 5 letters in length");
 			}
@@ -78,23 +77,15 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 			if(passcode.length()<4||isDigit==false)
 			{
 				JOptionPane.showMessageDialog(null, "Password must be 4 numbers");
-				jpwUserPassword.setText("");
 			}
 			else
 			{
 				passcode1 = Integer.parseInt(passcode.toString());
-				//add to checks if user name and password already exists
+				//checks if user name and password already exists
 				if(doesUserExist())
-				{
 					JOptionPane.showMessageDialog(null, "User Exists Please Change User Name");
-					jtfUserName.setText("");
-					
-				}
 				if(doesPasswordExist())
-				{
 					JOptionPane.showMessageDialog(null, "Password Exists Please Change Password");
-					jpwUserPassword.setText("");
-				}
 				if(doesUserExist()==false&&doesPasswordExist()==false)
 				{
 					userAndPasswordSaver saver = new userAndPasswordSaver(userName,passcode1);
@@ -102,8 +93,8 @@ public class newUserAndPasword extends JFrame implements ActionListener{
 					this.dispose();
 				}
 			}
-			System.out.println(userName);
-			System.out.println(passcode);
+//			System.out.println(userName);
+//			System.out.println(passcode);
 
 		}
 		else if(e.getSource()==jbtCancel)
